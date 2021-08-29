@@ -15,7 +15,7 @@ class PrimeraClase
     public function __construct()
     {
         add_action('init', [$this, 'init']);
-
+        //add_action('init', [$this, 'shortcodes_init']);
         register_activation_hook(__FILE__, [$this, 'activation']);
         register_deactivation_hook(__FILE__, [$this, 'deactivation']);
     }
@@ -23,7 +23,7 @@ class PrimeraClase
 
     public function init() : void
     {
-        
+        add_shortcode( 'autor', [$this ,'shortcode_mostrar_autor']);
         add_action('admin_menu', [$this, 'menu_pages']);
     }
 
@@ -85,6 +85,20 @@ class PrimeraClase
             delete_option('aloha');
         }
     }
+    function shortcode_mostrar_autor($atts) {
+
+        $p = shortcode_atts( array (
+              'nombre' => 'Invitado'
+              ), $atts );
+              
+        $texto = "<H1>".'Este artículo ha sido creado por '.$p['nombre']."</H1>";
+        return $texto;
+    }
+    
+    /* function shortcodes_init(){
+        add_shortcode( 'shortcode_name', 'shortcode_handler_function' );
+
+       } */
 }
 
 
