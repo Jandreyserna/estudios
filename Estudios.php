@@ -35,16 +35,17 @@ class PrimaryClass
         );
 
         if ( $menuPages = get_option( "registed_Menu") ) {
-            foreach($menuPages){
-
+            for ($i=0; $i < sizeof($menuPages) ; $i++) {
+              //add_menu_page($menuPages[$i]);
+              print_r($menuPages);
             }
         }
-        
+
     }
 
     public function menu_pages_register() : void
     {
-        $arregloMenu = array ([
+        $arregloMenu[1] = array (
             $this->newMenu,
             $this->newMenu,
             'administrator',
@@ -52,12 +53,16 @@ class PrimaryClass
             [$this, 'admin_page_registed' ],
             'dashicons-welcome-learn-more',
             4
-        ]);
+        );
 
-        
+        if ( $menuPages = get_option( "registed_Menu") ) {
+            sizeof($menuPages);
+            $menupage[sizeof($menuPages)] = $arregloMenu[1];
+            add_option( "registed_Menu", $menupage);
+        }else{
+          add_option( "registed_Menu", $arregloMenu[1]);
+        }
 
-        add_option( "registed_Menu", $arregloMenu);
-        
     }
 
     public function admin_page_registed()
@@ -81,7 +86,6 @@ class PrimaryClass
             $this->menu_pages_register();
             // add_action('admin_menu', [$this, 'menu_pages_register']);
         }
-
 
 ?>
       <form class="" action="" method="post">
